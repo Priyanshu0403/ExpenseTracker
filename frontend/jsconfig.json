@@ -1,0 +1,10 @@
+// this file and code is required if we need to use shadcn ui in react js project
+//we should always use jsconfig.json file instead of tsconfig.app.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
