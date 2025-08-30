@@ -1,3 +1,5 @@
+import Chart from '@/components/chart';
+import DoughnutChart from '@/components/doughnutChart';
 import Info from '@/components/info';
 import Navbar from '@/components/navbar';
 import Stats from '@/components/stats';
@@ -19,8 +21,8 @@ const Dashboard = () => {
           <Stats />
 
           <div className='w-full flex flex-col-reverse md:flex-row items-center gap-10'>
-            {/* <Chart />
-            <DoughnutChart /> */}
+            <Chart />
+            <DoughnutChart />
           </div>
 
           <div className='flex flex-col-reverse md:flex-row gap-0 md:gap-10 2xl:gap-20'>
