@@ -9,7 +9,7 @@ const Info = ({title,subtitle}) => {
         <span className='text-gray-600 dark:text-gray-500'>{subtitle}</span>
        </div>
 
-       <div className='flex items-center gap-4 md:gap-10 2xl:gap-20'>
+       <div className='flex items-center justify-between gap-4 md:gap-10 2xl:gap-20'>
         <div className='flex items-center gap-2 border border-gray-300 dark:border-gray-600 rounded-md p-2 '>
             <IoSearchOutline className='text-xl text-gray-600 dark:text-gray-500'/>
             <input type="text" placeholder='Search now...' className='bg-transparent outline-none text-gray-700 dark:text-gray-500'/>

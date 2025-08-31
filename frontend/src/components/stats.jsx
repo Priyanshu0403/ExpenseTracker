@@ -32,7 +32,7 @@ const ICON_STYLES = [
 
 const Stats = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-8 2xl:gap-40 mb-20">
+    <div className="flex flex-col md:flex-row items-center justify-between py-8 md:py-0 gap-8 2xl:gap-40 mb-20">
       {data.map((item, index) => (
         <div
           key={index + item.label}

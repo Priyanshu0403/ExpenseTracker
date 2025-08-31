@@ -2,6 +2,7 @@ import useStore from '@/store';
 import React, { useState } from 'react'
 import { LuSunMoon } from "react-icons/lu";
 import { IoMoonOutline } from 'react-icons/io5';
+import { BsFillMoonFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 
 const ThemeSwitch = () => {
     const{theme,setTheme} = useStore((state) => state);
@@ -18,9 +19,9 @@ const ThemeSwitch = () => {
     <button onClick={toggleTheme} className='outline-none'>
       {
         isDarkMode ? (
-          <LuSunMoon className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
+          <BsFillSunFill className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
         ) : (
-          <IoMoonOutline className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
+          <BsFillMoonStarsFill className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
         )
       }
     </button>

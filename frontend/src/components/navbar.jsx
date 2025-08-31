@@ -12,6 +12,18 @@ const Navbar = () => {
 
   
   return (
+    // <nav
+    //       className="fixed top-5 left-1/2 -translate-x-1/2 z-50 
+    //                w-[92%] max-w-8xl h-20 px-6 flex items-center justify-between 
+    //                rounded-xl shadow-lg border border-white/10 
+    //                bg-blue/30 backdrop-blur-md transition-all duration-300"
+    //       style={{
+    //         borderBottom: "1px solid rgba(255,255,255,0.05)",
+    //         background: "rgba( 20,60,120,0.5)",
+    //         backdropFilter: "blur(14px)",
+    //         WebkitBackdropFilter: "blur(14px)",
+    //       }}
+    //     ></nav>
     <div className="w-full flex items-center justify-between py-6">
       <div className="flex items-center gap-2 cursor-pointer">
         <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-violet-700 rounded-xl">

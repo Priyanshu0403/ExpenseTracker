@@ -5,6 +5,8 @@ import Navbar from '@/components/navbar';
 import Stats from '@/components/stats';
 import useStore from '@/store';
 import React from 'react'
+import Accounts from '@/components/accounts';
+import Transactions from '@/components/transactions';
 
 const Dashboard = () => {
   const theme = useStore((state) => state.theme); //"dark" "light"
@@ -26,8 +28,8 @@ const Dashboard = () => {
           </div>
 
           <div className='flex flex-col-reverse md:flex-row gap-0 md:gap-10 2xl:gap-20'>
-            {/* <Transactions />
-            <Accounts /> */}
+            <Transactions />
+            <Accounts />
           </div>
         </div>
       </div>
