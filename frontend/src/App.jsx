@@ -8,9 +8,7 @@ import AccountPage from "./pages/account-page";
 import useStore from "./store";
 import { setAuthToken } from "./lib/apiCall";
 import { Toaster } from "sonner";
-function App() {
-
-  //check if the user is registered or not
+ //check if the user is registered or not
   const RootLayout = () => {
     //accesses the entire store (state) — including values (theme, user) and methods (setTheme, setCredentials, signOut).
     const {user} = useStore((state)=> state);
@@ -28,6 +26,9 @@ function App() {
       </>
     );
   };
+function App() {
+
+ 
   return (
     <main>
       <div className="w-full min-h-screen  bg-gray-100 dark:bg-slate-900">
