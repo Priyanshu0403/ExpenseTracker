@@ -3,13 +3,13 @@ import DoughnutChart from '@/components/doughnutChart';
 import Info from '@/components/info';
 import Navbar from '@/components/navbar';
 import Stats from '@/components/stats';
-import useStore from '@/store';
+// import useStore from '@/store';
 import React, { useEffect, useState } from 'react'
 import Accounts from '@/components/accounts';
-import Transactions from '@/components/transactions';
 import api from '@/lib/apiCall';
 import { toast } from 'sonner';
 import Loading from '@/components/loading';
+import RecentTransactions from '@/components/recent-transactions';
 
 const Dashboard = () => {
 
@@ -52,11 +52,11 @@ const Dashboard = () => {
 
 
   // const theme = useStore((state) => state.theme); //"dark" "light"
-  const theme = "light"
+  // const theme = "light"
   return (
-    <main className={theme}>
-      <div className='w-full px-6 md:px-20 bg-white dark:bg-slate-900'>
-        <Navbar />
+    // <main className={theme}>
+      // <div className='w-full px-6 md:px-20 bg-white dark:bg-slate-900'>
+      //   <Navbar />
 
         <div className='px-0 md:px-5 2xl:px-20'>
           <Info
@@ -70,17 +70,25 @@ const Dashboard = () => {
           }}/>
 
           <div className='w-full flex flex-col-reverse md:flex-row items-center gap-10'>
-            <Chart />
-            <DoughnutChart />
+            <Chart data={data?.chartData} />
+            {data?.totalIncome > 0 && (
+              <DoughnutChart 
+              dt={{
+                balance: data?.availableBalance,
+                income: data?.totalIncome,
+                expense:data?.totalExpense,
+              }}/>
+              )}
+            
           </div>
 
           <div className='flex flex-col-reverse md:flex-row gap-0 md:gap-10 2xl:gap-20'>
-            <Transactions />
-            <Accounts />
+            <RecentTransactions data={data?.lastTransactions}/>
+            {data?.lastAccount?.length > 0 && <Accounts data={data?.lastAccount}/>}
           </div>
         </div>
-      </div>
-    </main>
+    //   </div>
+    // </main>
   )
 }
 

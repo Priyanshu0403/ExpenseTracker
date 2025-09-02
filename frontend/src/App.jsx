@@ -8,27 +8,40 @@ import AccountPage from "./pages/account-page";
 import useStore from "./store";
 import { setAuthToken } from "./lib/apiCall";
 import { Toaster } from "sonner";
- //check if the user is registered or not
-  const RootLayout = () => {
-    //accesses the entire store (state) — including values (theme, user) and methods (setTheme, setCredentials, signOut).
-    const {user} = useStore((state)=> state);
-    setAuthToken(user?.token || "")
-    console.log(user);
-    return !user ? (
-      <Navigate to="sign-in" replace={true}/>
-    ) : (
-      <>
-        {/* Navbar */}
+import { useEffect } from "react";
+import Navbar from "./components/navbar";
+
+//check if the user is registered or not
+const RootLayout = () => {
+  //accesses the entire store (state) — including values (theme, user) and methods (setTheme, setCredentials, signOut).
+  const { user } = useStore((state) => state);
+  setAuthToken(user?.token || "");
+  console.log(user);
+  return !user ? (
+    <Navigate to="sign-in" replace={true} />
+  ) : (
+    <>
+      {/* Navbar */}
+      <div className="w-full px-6 md:px-20 bg-white dark:bg-slate-900">
+        <Navbar />
         {/* The minimum height of this div will be full screen height minus 100px. */}
         <div className="min-h-[calc(h-screen-100px)]">
-          <Outlet/>
+          <Outlet />
         </div>
-      </>
-    );
-  };
-function App() {
+      </div>
+    </>
+  );
+};
 
- 
+function App() {
+  const { theme } = useStore((state) => state);
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
   return (
     <main>
       <div className="w-full min-h-screen  bg-gray-100 dark:bg-slate-900">
@@ -39,14 +52,14 @@ function App() {
             <Route path="/overview" element={<Dashboard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/account" element={<AccountPage />} />
+            <Route path="/accounts" element={<AccountPage />} />
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
 
-      <Toaster richColors position="top-center"/>
+      <Toaster richColors position="top-center" />
     </main>
   );
 }
