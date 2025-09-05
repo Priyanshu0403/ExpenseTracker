@@ -21,3 +21,41 @@ export const formatCurrency = (value) =>{
         minimumFractionDigits: 2,
     }).format(numberValue);
 }
+
+export const getDateSevenDaysAgo = () => {
+  const today = new Date();
+  const sevenDaysAgo = new Date(today);
+  sevenDaysAgo.setDate(today.getDate() - 7);
+  return sevenDaysAgo.toISOString().split('T')[0];
+}
+
+export async function fetchCountries() {
+  try {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+      const data = await response.json();
+    if (!response.ok) {
+      const countries = data.map((country) => {
+        const currencies = country.currencies || {};
+        const currencyCodes = Object.keys(currencies)[0];
+
+        return {
+          country: country.name.common,
+          flag: country.flags.svg || country.flags.png,
+          currency: currencyCodes || "", 
+        };
+      });
+
+      const sortedCountries = countries.sort((a, b) =>
+      a.country.localeCompare(b.country)
+      );
+
+      return sortedCountries;
+    }else {
+      console.error(`Error:${data.message}`);
+      return [];
+    }
+  } catch (error) {
+    console.error('An error occured while fetching data:', error);
+    return [];
+  }
+}
