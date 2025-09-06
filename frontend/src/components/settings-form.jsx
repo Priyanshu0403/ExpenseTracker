@@ -10,8 +10,12 @@ import {
 } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
-import { BiCheck } from "react-icons/bi";
+import { BiCheck, BiLoader } from "react-icons/bi";
 import { BsChevronExpand } from "react-icons/bs";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
+import api from "@/lib/apiCall";
 
 const SettingForm = () => {
   const { user, theme, setTheme } = useStore((state) => state);
@@ -30,9 +34,32 @@ const SettingForm = () => {
   const [countriesData, setCountriesData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (values) => {
-    console.log(values);
-  };
+ const onSubmit = async (values) => {
+  try {
+    setLoading(true);
+
+    const newData = {
+      ...values,
+      country: selectedCountry.country,
+      currency: selectedCountry.currency,
+    };
+
+    const { data: res } = await api.put(`/user`, newData);
+
+    if (res?.user) {
+      const newUser = { ...res.user, token: user.token };
+      localStorage.setItem("user", JSON.stringify(newUser));
+    }
+
+    toast.success(res?.message);
+  } catch (error) {
+    console.error("Something went wrong:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
   const toggleTheme = (val) => {
     setTheme(val);
     //Saves that theme choice into the browser’s localStorage.
@@ -141,10 +168,135 @@ const SettingForm = () => {
   };
 
   return (
-    <div>
-      Setting form
-      <Countries />
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="w-full">
+          <Input
+            disabled={loading}
+            id="firstname"
+            label=" First Name"
+            placeholder="John"
+            register={register("firstname", {
+              required: "This field is required",
+            })}
+            error={errors.firstname?.message}
+            className="inputStyle"
+          />
+        </div>
+        <div className="w-full">
+          <Input
+            disabled={loading}
+            id="lastname"
+            label="Last Name"
+            placeholder="Doe"
+            register={register("lastname", {
+              required: "This field is required",
+            })}
+            error={errors.lastname?.message}
+            className="inputStyle"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="w-full">
+          <Input
+            disabled={loading}
+            id="email"
+            label="Email Address"
+            placeholder="johndoe@gmail.com"
+            register={register("email", {
+              required: "This field is required",
+            })}
+            error={errors.email?.message}
+            className="inputStyle"
+          />
+        </div>
+        <div className="w-full">
+          <Input
+            disabled={loading}
+            id="contact"
+            label="Contact Number"
+            placeholder="9898989898"
+            register={register("contact", {
+              required: "This field is required",
+            })}
+            error={errors.contact?.message}
+            className="inputStyle"
+          />
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="w-full">
+          <span className="labelStyles">Country</span>
+          <Countries />
+        </div>
+        <div className="w-full">
+          <span className="labelStyles">Currency</span>
+          <select className="inputStyle">
+            <option>{selectedCountry?.currency || user?.country}</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="w-full flex items-center justify-between pt-10">
+        <div className="">
+          <p className="text-lg text-black dark:text-gray-400 font-semibold">
+            Appearance
+          </p>
+          <span className="labelStyles">
+            Customize how your theme looks on your device.
+          </span>
+        </div>
+
+        <div className="w-28 md:w-40">
+          <select
+            className="inputStyles"
+            defaultValue={theme}
+            onChange={(e) => toggleTheme(e.target.value)}
+          >
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+      <div className="w-full flex items-center justify-between pb-10">
+        <div>
+          <p className="text-lg text-black dark:text-gray-400 font-semibold">
+            Language
+          </p>
+          <span className="labelStyles">
+            Customize what language you want to use.
+          </span>
+        </div>
+
+        <div className="w-28 md:w-40">
+          <select className="inputStyles" defaultValue="English">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Spanish">Spanish</option>
+            <option value="French">French</option>
+          </select>
+        </div>
+      </div>
+      <div className="flex items-center gap-6 justify-center pb-10 border-b-2 border-gray-200 dark:border-gray-800">
+        <Button
+          variant="outline"
+          loading={loading}
+          type="reset"
+          className="px-6 bg-transparent text-black dark:text-white border border-gray-200 dark:border-gray-700"
+        >
+          Reset
+        </Button>
+
+        <Button
+          loading={loading}
+          type="submit"
+          className="px-8 bg-violet-800 text-white"
+        >
+          {loading? <BiLoader className="animate-spin text-white"/>:"Save"}
+        </Button>
+      </div>
+    </form>
   );
 };
 
