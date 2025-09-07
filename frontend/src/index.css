@@ -119,5 +119,5 @@
 }
 
 .inputStyle {
-  @apply w-full text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-500 dark:text-gray-400 dark:outline-none focus:border-blue-500 focus:ring-0
+  @apply w-full text-sm border dark:border-gray-800 dark:bg-transparent dark:placeholder:text-gray-500 dark:text-gray-400 dark:outline-none focus:border-blue-500 focus:ring-0  ring-blue-500
 }

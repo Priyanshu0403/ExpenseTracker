@@ -1,3 +1,4 @@
+import ChangePassword from '@/components/change-password';
 import SettingForm from '@/components/settings-form';
 import Title from '@/components/title';
 import useStore from '@/store'
@@ -26,7 +27,7 @@ const Settings = () => {
           </p>
         </div>
         <SettingForm/>
-        
+        {!user?.provided && <ChangePassword/>}
       </div>
     </div>
   </div>
