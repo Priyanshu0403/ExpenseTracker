@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+
+
 export const maskAccountNumber = (accountNumber) => {
   if (typeof accountNumber !== "string" ||  accountNumber.length < 12){
     return accountNumber;
@@ -58,4 +61,13 @@ export async function fetchCountries() {
     console.error('An error occured while fetching data:', error);
     return [];
   }
+}
+
+export function generateAccountNumber(){
+  let accountNumber = "";
+  while(accountNumber.length<13){
+    const uuid= uuidv4().replace(/-/g,"");
+    accountNumber+= uuid.replace(/\D/g,"");
+  }
+  return accountNumber.substring(0,13);
 }

@@ -1,5 +1,8 @@
+import AccountMenu from "@/components/account-dialog";
+import { AddAccount } from "@/components/add-account";
 import Loading from "@/components/loading";
 import Title from "@/components/title";
+import { formatCurrency, maskAccountNumber } from "@/lib";
 import api from "@/lib/apiCall";
 import useStore from "@/store";
 import React, { useEffect, useState } from "react";
@@ -41,7 +44,7 @@ const AccountPage = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchAccount = async () => {
+  const fetchAccounts = async () => {
     try {
       const { data: res } = await api.get(`/account`);
       setData(res?.data);
@@ -56,9 +59,20 @@ const AccountPage = () => {
       setLoading(false);
     }
   };
+
+  const handleOpenAddMoney = (acc)=>{
+    setSelectedAccount(acc?.id);
+    setIsOpenTopup(true);
+  }
+
+  const handleTransferMoney = (acc)=>{
+    setSelectedAccount(acc?.id);
+    setIsOpenTransfer(true);
+  }
+  
   useEffect(() => {
     setLoading(true);
-    fetchAccount();
+    fetchAccounts();
   }, []);
 
   if (loading) {
@@ -104,7 +118,29 @@ const AccountPage = () => {
                         size={26}
                         className="text-emerald-600 ml-1"
                       />
-                    </div>
+                      </div>
+                      <AccountMenu
+                        addMoney={()=> handleOpenAddMoney(acc)}
+                        transferMoney={()=> handleTransferMoney(acc)}
+                      />
+                  </div>
+                  <span className="text-gray-600 dark:text-gray-500 text-lg font-light leading-loose">
+                    {maskAccountNumber(acc?.account_number)}
+                    </span>
+                  <p className="text-gray-600 dark:text-gray-500 text-xs font-semibold">
+                    {new Date(acc?.createdat).toLocaleDateString("en-US", {
+                      dateStyle: "full",})}
+                  </p>
+
+                  <div className="flex items-center justify-between">
+                    <p className="text-xl font-medium text-gray-600 dark:text-gray-500">
+                      {formatCurrency(acc?.account_balance)}
+                      </p>
+                    <button 
+                    onClick ={()=>handleOpenAddMoney(acc)}
+                    className="text-sm outline-none text-violet-600 hover:underline">
+                      Add Money
+                    </button>
                   </div>
                 </div>
               </div>
@@ -112,6 +148,11 @@ const AccountPage = () => {
           </div>
         )}
       </div>
+      <AddAccount
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      refetch={fetchAccounts}
+      key={new Date().getTime()}/>
     </>
   );
 };

@@ -2,6 +2,7 @@ import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 import React, { Fragment } from "react";
 
 const DialogWrapper = ({ isOpen, closeModal, children }) => {
+  
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
@@ -9,6 +10,7 @@ const DialogWrapper = ({ isOpen, closeModal, children }) => {
         className="relative z-50"
         onClose={closeModal}
       >
+        
         {/* Background overlay */}
         <TransitionChild
           as={Fragment}
