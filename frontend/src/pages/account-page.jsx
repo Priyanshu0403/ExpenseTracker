@@ -1,7 +1,9 @@
 import AccountMenu from "@/components/account-dialog";
 import { AddAccount } from "@/components/add-account";
+import AddMoney from "@/components/add-money-account";
 import Loading from "@/components/loading";
 import Title from "@/components/title";
+import TransferMoney from "@/components/transfer-money";
 import { formatCurrency, maskAccountNumber } from "@/lib";
 import api from "@/lib/apiCall";
 import useStore from "@/store";
@@ -153,6 +155,21 @@ const AccountPage = () => {
       setIsOpen={setIsOpen}
       refetch={fetchAccounts}
       key={new Date().getTime()}/>
+
+      <AddMoney
+      isOpen={isOpenTopup}
+      setIsOpen={setIsOpenTopup}
+      id={selectedAccount}
+      refetch={fetchAccounts}
+      key={new Date().getTime() + 1}
+      />
+      <TransferMoney
+      isOpen={isOpenTransfer}
+      setIsOpen={setIsOpenTransfer}
+      id={selectedAccount}
+      refetch={fetchAccounts}
+      key={new Date().getTime() + 2}
+      />
     </>
   );
 };
