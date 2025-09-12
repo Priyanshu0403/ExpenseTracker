@@ -13,12 +13,12 @@ export default function AccountMenu({ addMoney, transferMoney }) {
       </MenuButton>
       <TransitionWrapper>
         <MenuItems className='absolute z-2 right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white'>
-          <div className='px-1 py-1 space-y-2'>
+          <div className='px-1 py-1 space-y-2 bg-slate-200 dark:bg-slate-700 rounded'>
             <MenuItem>
               {({}) => (
                 <button
                   onClick={transferMoney}
-                  className='group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-300'
+                  className='group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-200'
                 >
                   <BiTransfer />
                   Transfer Funds
@@ -29,7 +29,7 @@ export default function AccountMenu({ addMoney, transferMoney }) {
               {({}) => (
                 <button
                   onClick={addMoney}
-                  className='group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-300'
+                  className='group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-200'
                 >
                   <FaMoneyCheckDollar />
                   Add Money
