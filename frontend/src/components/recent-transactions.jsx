@@ -29,7 +29,6 @@ const RecentTransactions = ({ data }) => {
               <th className="py-2 px-2">Amount</th>
             </tr>
           </thead>
-          I
           <tbody>
             {data?.map((item, index) => (
               <tr
