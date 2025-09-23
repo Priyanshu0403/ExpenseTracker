@@ -197,9 +197,9 @@ const MobileSidebar = () => {
 };
 
 
-// ✅ Navbar Component
+
 const Navbar = () => {
-  const [selected, setSelected] = useState(0);
+  const location = useLocation(); // get current path
 
   return (
     <div className="w-full flex items-center justify-between py-6">
@@ -219,11 +219,10 @@ const Navbar = () => {
           <div
             key={index}
             className={`${
-              index === selected
+              location.pathname === item.link
                 ? "bg-black dark:bg-slate-800 text-white"
                 : "text-gray-500 dark:text-gray-500"
             } px-6 py-2 rounded-full cursor-pointer`}
-            onClick={() => setSelected(index)}
           >
             <Link to={item.link}>{item.label}</Link>
           </div>
@@ -234,12 +233,12 @@ const Navbar = () => {
       <div className="flex items-center gap-6 md:gap-10 2xl:gap-20">
         <ThemeSwitch />
         <UserMenu />
-        {/* Show only on mobile */}
         <MobileSidebar />
       </div>
     </div>
   );
 };
+
 
 
 export default Navbar;

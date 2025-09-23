@@ -100,7 +100,7 @@ const AccountPage = () => {
             <span>No Account Found</span>
           </div>
         ) : (
-          <div className="w-full grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-4 py-10 gap-6">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 py-10 gap-6">
             {data?.map((acc, index) => (
               <div
                 key={index}

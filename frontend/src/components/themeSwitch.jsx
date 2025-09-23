@@ -1,34 +1,41 @@
-import useStore from '@/store';
-import React, { useState } from 'react'
-import { LuSunMoon } from "react-icons/lu";
-import { IoMoonOutline } from 'react-icons/io5';
-import { BsFillMoonFill, BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import useStore from "@/store";
+import React, { useEffect, useState } from "react";
 
 const ThemeSwitch = () => {
-    const{theme,setTheme} = useStore((state) => state);
-    const[isDarkMode,setIsDarkMode]=useState(theme === "dark");
+  const { theme, setTheme } = useStore((state) => state);
+  const [isDarkMode, setIsDarkMode] = useState(theme === "dark");
 
-    const toggleTheme =()=>{
-        const newTheme = isDarkMode? "light":"dark";
-        setIsDarkMode(!isDarkMode);
+  useEffect(() => {
+    document.body.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
 
-        setTheme(newTheme);
-        localStorage.setItem("theme",newTheme);
-    }
+  const toggleTheme = () => {
+    const newTheme = isDarkMode ? "light" : "dark";
+    setIsDarkMode(!isDarkMode);
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   return (
-    <button onClick={toggleTheme} className='outline-none'>
-      {
-        isDarkMode ? (
-          <BsFillSunFill className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
-        ) : (
-          <BsFillMoonStarsFill className='text-2xl text-gray-600 dark:text-gray-300 cursor-pointer'/>
-        )
-      }
-    </button>
-    // <div className={`switch ${isDarkMode? "light":"dark"}`} onClick={toggleTheme}>
-    //   <div className={`ball ${isDarkMode ? "dark":"light"}`}></div>
-    // </div>
-  )
-}
+    <div
+      onClick={toggleTheme}
+      className="relative w-11 h-5 bg-gray-800 dark:bg-gray-200 rounded-full cursor-pointer flex items-center justify-between px-1"
+    >
+      {/* Sun and Moon indicators */}
+      <span className="text-yellow-400 flex items-center justify-center w-3 h-3 text-[0.85rem]">☀️</span>
+      <span className="text-orange-400 flex items-center justify-center w-3 h-3 text-[0.85rem]">🌙</span>
 
-export default ThemeSwitch
+      {/* Sliding ball */}
+      <span
+        className={`absolute left-0.5 top-0.5 w-4 h-4 rounded-full transition-transform duration-200 ${
+          isDarkMode ? "translate-x-6 bg-black" : " bg-white"
+        }`}
+      ></span>
+    </div>
+  );
+};
+
+export default ThemeSwitch;
+
+
+
