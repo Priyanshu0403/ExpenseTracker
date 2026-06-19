@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+//all routes defined in routes/index.js will be prefixed with /api-v1
 app.use("/api-v1", routes);
 
 app.use("*", (req, res) => {

@@ -1,4 +1,4 @@
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+  import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import SignIn from "./pages/auth/sign-in";
 import SignUp from "./pages/auth/sign-up";
 import Dashboard from "./pages/dashboard";

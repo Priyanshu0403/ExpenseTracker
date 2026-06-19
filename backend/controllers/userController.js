@@ -20,7 +20,9 @@ export const getUser = async(req,res)=>{
             })
         }
 
-        user.password = undefined; //to not send password in response
+        user.password = undefined;
+        
+         //to not send password in response
 
         res.status(201).json({
             status:"success",

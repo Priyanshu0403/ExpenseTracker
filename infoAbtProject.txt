@@ -1,0 +1,18 @@
+# DATABASE_URI is the database connection string
+# this URI is taken from render.com database instance which shows connection details
+#put this info when creating a postgresql database on pgAdmin 
+#if render database got suspended then create a new database on render and change the URI here
+# and not sure but have to create a complete new database on pgAdmin too
+# and have to create all the tables again using the schema.sql file
+
+#DATABASE_URI=postgresql://username:password@hostname:port/databasename
+
+
+
+(1) In case of Failure to login or signup
+-- check for render database instance(might be suspended) 
+        -if this happen then delete that instance and create a new database instance (free render account has limits)
+        -create a new database in pgAdmin as the old database can't be accessed due to suspension of the database instance 
+        so we cannot use the password to access  the old database 
+        -rerun the backend in terminal(npm start)
+        -rerun the frontend and the Failure is gone 

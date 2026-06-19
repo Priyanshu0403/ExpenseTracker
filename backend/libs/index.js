@@ -18,7 +18,7 @@ export const comparePassword = async (userPassword, password) => {
 
 // Create JWT Token
 // This function generates a JWT token using the user ID and a secret key from environment variables.
-// The token is set to expire in 1 day.
+// The token is set to expire in 5 day.
 export const createJWT = (id) => {
   return JWT.sign(
     { userId: id }, 
